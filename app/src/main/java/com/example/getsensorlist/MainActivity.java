@@ -23,14 +23,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE) ;
+        sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
+
         mtxtSensors = findViewById(R.id.txtSensors);
 //        mtxtSensors.setMovementMethod(new ScrollingMovementMethod());
         mButton = findViewById(R.id.button);
         mButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE) ;
-               sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
+
 
                mtxtSensors.append("(# Sensors:" + sensorList.size() + ")\n\n");
                for(Sensor sensor : sensorList) {   //Enhanced for loop
