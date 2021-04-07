@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     TextView mtxtSensors;
     SensorManager sensorManager;
     List<Sensor> sensorList;
@@ -23,24 +23,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE) ;
+        mtxtSensors = findViewById(R.id.txtSensors);
+        mButton = findViewById(R.id.button);
+//        mtxtSensors.setMovementMethod(new ScrollingMovementMethod());
+
+        mButton.setOnClickListener(this);
+    }
+
+
+
+    @Override
+    public void onClick (View v){
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
 
-        mtxtSensors = findViewById(R.id.txtSensors);
-//        mtxtSensors.setMovementMethod(new ScrollingMovementMethod());
-        mButton = findViewById(R.id.button);
-        mButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-
-
-               mtxtSensors.append("(# Sensors:" + sensorList.size() + ")\n\n");
-               for(Sensor sensor : sensorList) {   //Enhanced for loop
-                   mtxtSensors.append("Sensor name: " + sensor.getName() + "\n");
-                   mtxtSensors.append("Sensor type: " + sensor.getType() + "\n\n");
-               }
-           }
-        });
-
+        mtxtSensors.append("(# Sensors:" + sensorList.size() + ")\n\n");
+        for (Sensor sensor : sensorList) {   //Enhanced for loop
+            mtxtSensors.append("Sensor name: " + sensor.getName() + "\n");
+            mtxtSensors.append("Sensor type: " + sensor.getType() + "\n\n");
+        }
     }
 }
